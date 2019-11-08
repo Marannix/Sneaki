@@ -33,7 +33,9 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
             val jsonArray = JSONArray(string.toString())
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray[i] as JSONObject
-                array = array + CountriesModel(jsonObject.getString("name"))
+                val name = jsonObject.getString("name")
+                val population = jsonObject.getInt("population")
+                array = array + CountriesModel(name, population)
             }
 
         } catch (error: MalformedURLException) {

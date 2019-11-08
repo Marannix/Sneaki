@@ -2,6 +2,7 @@ package com.example.sneaki
 
 import android.os.AsyncTask
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -11,11 +12,11 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class FetchData : AsyncTask<Void, Void, Void>() {
+class CountryResponse : AsyncTask<Void, Void, Void>() {
 
-    val string = StringBuilder()
-    var parsed = ""
-    var parsed2 = ""
+    private val string = StringBuilder()
+    var array = emptyList<CountriesModel>()
+    var listOfCountries = MutableLiveData<List<CountriesModel>>()
 
     override fun doInBackground(vararg p0: Void?): Void? {
         try {
@@ -32,8 +33,7 @@ class FetchData : AsyncTask<Void, Void, Void>() {
             val jsonArray = JSONArray(string.toString())
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray[i] as JSONObject
-                parsed = "Name:" + jsonObject.get("name") + "\n"
-                parsed2 += parsed
+                array = array + CountriesModel(jsonObject.getString("name"))
             }
 
         } catch (error: MalformedURLException) {
@@ -47,6 +47,7 @@ class FetchData : AsyncTask<Void, Void, Void>() {
 
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
-        Log.d("yikes", parsed2)
+        listOfCountries.postValue(array)
+        Log.d("yikes3", array.toString())
     }
 }

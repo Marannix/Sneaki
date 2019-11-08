@@ -34,9 +34,14 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
         val layoutInflater = LayoutInflater.from(context)
         val row = layoutInflater.inflate(R.layout.country_row, viewGroup, false)
-        row.countryName.text = countries[position].name
+
         val formattedPopulation = NumberFormat.getNumberInstance(Locale.UK).format(countries[position].population)
-        row.countryPopulation.text =  formattedPopulation
+
+        row.countryName.text = countries[position].name
+        row.countryPopulation.text = formattedPopulation
+        row.latitude.text = countries[position].latitude.toString()
+        row.longitude.text = countries[position].longitude.toString()
+
         return row
     }
 

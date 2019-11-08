@@ -17,6 +17,8 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
     private val string = StringBuilder()
     var array = emptyList<CountriesModel>()
     var listOfCountries = MutableLiveData<List<CountriesModel>>()
+    private var latitude = 0.0
+    private var longitude = 0.0
 
     override fun doInBackground(vararg p0: Void?): Void? {
         try {
@@ -35,7 +37,14 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
                 val jsonObject = jsonArray[i] as JSONObject
                 val name = jsonObject.getString("name")
                 val population = jsonObject.getInt("population")
-                array = array + CountriesModel(name, population)
+                val latlngArray = jsonObject.getJSONArray("latlng")
+
+                if (latlngArray.length() > 0) {
+                    latitude = latlngArray[0] as Double
+                    longitude = latlngArray[1] as Double
+                }
+
+                array = array + CountriesModel(name, population, latitude, longitude)
             }
 
         } catch (error: MalformedURLException) {
@@ -50,6 +59,5 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
         listOfCountries.postValue(array)
-        Log.d("yikes3", array.toString())
     }
 }

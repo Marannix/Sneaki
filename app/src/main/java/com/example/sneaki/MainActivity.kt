@@ -35,13 +35,15 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
 
         fragmentManager.beginTransaction()
+            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
             .replace(R.id.fragmentContainer, fragment)
             .addToBackStack(BACK_STACK_ROOT_TAG)
             .commit()
     }
 
+    // TODO: Fix when screen is on Country Fragment and back button is pressed the screen becomes blank :)))))
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 1) {
+        if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         } else {
             super.onBackPressed()

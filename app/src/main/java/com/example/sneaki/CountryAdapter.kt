@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.country_row.view.*
-import java.text.NumberFormat
-import java.util.*
 
 class CountryAdapter(private val context: Context) : BaseAdapter() {
 
@@ -48,13 +46,7 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
     }
 
     private fun bind(row: View, position: Int) {
-        val formattedPopulation = NumberFormat.getNumberInstance(Locale.UK).format(countries[position].population)
-
         row.countryName.text = countries[position].name
-        row.countryPopulation.text = formattedPopulation
-        row.latitude.text = countries[position].latitude.toString()
-        row.longitude.text = countries[position].longitude.toString()
-
         row.countryRow.setOnClickListener {
             listener?.onCountryClicked(countries[position])
         }

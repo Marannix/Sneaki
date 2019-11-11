@@ -3,8 +3,11 @@ package com.example.sneaki
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+
 
 class MainActivity : AppCompatActivity() {
+    private val BACK_STACK_ROOT_TAG = "root_fragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private fun initCountryFragment() {
         val fragment = CountryFragment.newInstance()
         replaceFragment(fragment)
-        fragment.attach(object: CountryFragment.OnCountrySelectedListener {
+        fragment.attach(object : CountryFragment.OnCountrySelectedListener {
             override fun onCountrySelected(country: CountriesModel) {
                 initDetailFragment(country)
             }
@@ -29,9 +32,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
-        fragmentTransaction.commit()
+        val fragmentManager = supportFragmentManager
+
+        fragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(BACK_STACK_ROOT_TAG)
+            .commit()
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

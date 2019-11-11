@@ -36,6 +36,7 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray[i] as JSONObject
                 val name = jsonObject.getString("name")
+                val capital = jsonObject.getString("capital")
                 val population = jsonObject.getInt("population")
                 val latlngArray = jsonObject.getJSONArray("latlng")
 
@@ -44,7 +45,7 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
                     longitude = latlngArray[1] as Double
                 }
 
-                array = array + CountriesModel(name, population, latitude, longitude)
+                array = array + CountriesModel(name, capital, population, latitude, longitude)
             }
 
         } catch (error: MalformedURLException) {

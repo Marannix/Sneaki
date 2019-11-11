@@ -47,7 +47,9 @@ class CountryFragment : Fragment() {
     }
 
     private fun fetchData() {
-        response.execute()
+        if (response.listOfCountries.value.isNullOrEmpty()) {
+            response.execute()
+        }
     }
 
     private fun initListView() {

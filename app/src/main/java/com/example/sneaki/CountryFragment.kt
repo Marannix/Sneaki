@@ -30,11 +30,22 @@ class CountryFragment : Fragment() {
     }
 
     private fun init() {
+        fetchData()
+        initListView()
+        subscribeToViewState()
+    }
+
+    private fun fetchData() {
         response.execute()
+    }
+
+    private fun initListView() {
         listView.adapter = adapter
+    }
+
+    private fun subscribeToViewState() {
         response.listOfCountries.observe(this, Observer { countries ->
             adapter.setData(countries)
         })
     }
-
 }

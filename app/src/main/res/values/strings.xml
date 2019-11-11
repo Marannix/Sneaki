@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Sneaki</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="sorts">
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </string-array>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.sneaki
 
 import android.os.AsyncTask
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import org.json.JSONArray
 import org.json.JSONObject
@@ -12,11 +11,13 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
+// Wanted this to be my viewmodel
 class CountryResponse : AsyncTask<Void, Void, Void>() {
 
     private val string = StringBuilder()
     var array = emptyList<CountriesModel>()
     var listOfCountries = MutableLiveData<List<CountriesModel>>()
+    var isReversed = false
     private var latitude = 0.0
     private var longitude = 0.0
 
@@ -60,5 +61,24 @@ class CountryResponse : AsyncTask<Void, Void, Void>() {
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
         listOfCountries.postValue(array)
+    }
+
+    fun sortCountries(reverse: Boolean) {
+        if (listOfCountries.value.isNullOrEmpty()) {
+            return
+        }
+        when (reverse) {
+            true -> {
+                isReversed = true
+                listOfCountries.value = listOfCountries.value?.asReversed()!!
+            }
+            false -> {
+                // My awful attempt to reverse a reversed list
+                if (isReversed) {
+                    listOfCountries.value = listOfCountries.value?.asReversed()!!
+                }
+                isReversed = false
+            }
+        }
     }
 }

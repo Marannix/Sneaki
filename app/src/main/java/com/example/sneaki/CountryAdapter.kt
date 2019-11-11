@@ -21,7 +21,7 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
     }
 
     fun setData(countries: List<CountriesModel>) {
-        this.countries += countries
+        this.countries = countries
         notifyDataSetChanged()
     }
 
@@ -50,7 +50,6 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
         row.countryRow.setOnClickListener {
             listener?.onCountryClicked(countries[position])
         }
-
     }
 
     fun clearListener() {

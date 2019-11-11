@@ -3,10 +3,9 @@ package com.example.sneaki
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-
 
 class MainActivity : AppCompatActivity() {
+
     private val BACK_STACK_ROOT_TAG = "root_fragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,4 +48,5 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
 }

@@ -5,19 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_country.*
 
-class CountryFragment : Fragment() {
+class CountryFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var listener: OnCountrySelectedListener? = null
+    private var countries = emptyList<CountriesModel>()
 
     interface OnCountrySelectedListener {
         fun onCountrySelected(country: CountriesModel)
     }
 
     companion object {
-        fun newInstance()  = CountryFragment()
+        fun newInstance() = CountryFragment()
     }
 
     private val response by lazy { CountryResponse() }
@@ -41,6 +44,7 @@ class CountryFragment : Fragment() {
 
     private fun init() {
         fetchData()
+        initSpinner()
         initListView()
         setCountryListener()
         subscribeToViewState()
@@ -56,8 +60,15 @@ class CountryFragment : Fragment() {
         listView.adapter = adapter
     }
 
+    private fun initSpinner() {
+        val spinnerAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.sorts, android.R.layout.simple_spinner_item)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sortSpinner.adapter = spinnerAdapter
+        sortSpinner.onItemSelectedListener = this
+    }
+
     private fun setCountryListener() {
-        adapter.setListener(object: CountryAdapter.OnCountryClickedListener {
+        adapter.setListener(object : CountryAdapter.OnCountryClickedListener {
             override fun onCountryClicked(country: CountriesModel) {
                 listener?.onCountrySelected(country)
             }
@@ -65,9 +76,25 @@ class CountryFragment : Fragment() {
     }
 
     private fun subscribeToViewState() {
-        response.listOfCountries.observe(this, Observer { countries ->
+        response.listOfCountries.observe(this, Observer { listOfCountries ->
+            countries = listOfCountries
             adapter.setData(countries)
         })
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, p3: Long) {
+        when (position) {
+            0 -> {
+                response.sortCountries(false)
+            }
+            1 -> {
+                response.sortCountries(true)
+            }
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
     }
 
     override fun onDetach() {

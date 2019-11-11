@@ -2,23 +2,24 @@ package com.example.sneaki
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
-
-    private val response by lazy { CountryResponse() }
-    private val adapter by lazy { CountryAdapter(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        response.execute()
+        initCountryFragment()
+    }
 
-        listView.adapter = adapter
+    private fun initCountryFragment() {
+        val fragment = CountryFragment.newInstance()
+        replaceFragment(fragment)
+    }
 
-        response.listOfCountries.observe(this, Observer { countries ->
-            adapter.setData(countries)
-        })
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+        fragmentTransaction.commit()
     }
 }

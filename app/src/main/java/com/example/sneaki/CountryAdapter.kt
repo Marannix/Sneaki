@@ -43,7 +43,11 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
         val layoutInflater = LayoutInflater.from(context)
         val row = layoutInflater.inflate(R.layout.country_row, viewGroup, false)
+        bind(row, position)
+        return row
+    }
 
+    private fun bind(row: View, position: Int) {
         val formattedPopulation = NumberFormat.getNumberInstance(Locale.UK).format(countries[position].population)
 
         row.countryName.text = countries[position].name
@@ -55,7 +59,6 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
             listener?.onCountrySelected(countries[position])
         }
 
-        return row
     }
 
     fun clearListener() {

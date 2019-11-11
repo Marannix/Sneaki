@@ -17,6 +17,11 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(fragment)
     }
 
+//    private fun initDetailFragment() {
+//        val fragment = DetailFragment.newInstance()
+//        replaceFragment(fragment)
+//    }
+
     private fun replaceFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)

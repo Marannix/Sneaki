@@ -12,6 +12,15 @@ import java.util.*
 class CountryAdapter(private val context: Context) : BaseAdapter() {
 
     private var countries = emptyList<CountriesModel>()
+    private var listener: OnCountrySelectedListener? = null
+
+    interface OnCountrySelectedListener {
+        fun onCountrySelected(country: CountriesModel)
+    }
+
+    fun setListener(listener: OnCountrySelectedListener) {
+        this.listener = listener
+    }
 
     fun setData(countries: List<CountriesModel>) {
         this.countries += countries
@@ -42,7 +51,14 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
         row.latitude.text = countries[position].latitude.toString()
         row.longitude.text = countries[position].longitude.toString()
 
+        row.countryRow.setOnClickListener {
+            listener?.onCountrySelected(countries[position])
+        }
+
         return row
     }
 
+    fun clearListener() {
+        listener = null
+    }
 }

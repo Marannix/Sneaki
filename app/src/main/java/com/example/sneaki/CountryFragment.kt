@@ -1,6 +1,7 @@
 package com.example.sneaki
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class CountryFragment : Fragment() {
     private fun init() {
         fetchData()
         initListView()
+        setCountryListener()
         subscribeToViewState()
     }
 
@@ -43,9 +45,22 @@ class CountryFragment : Fragment() {
         listView.adapter = adapter
     }
 
+    private fun setCountryListener() {
+        adapter.setListener(object: CountryAdapter.OnCountrySelectedListener {
+            override fun onCountrySelected(country: CountriesModel) {
+                Log.d("Countryfragment",country.name)
+            }
+        })
+    }
+
     private fun subscribeToViewState() {
         response.listOfCountries.observe(this, Observer { countries ->
             adapter.setData(countries)
         })
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        adapter.clearListener()
     }
 }

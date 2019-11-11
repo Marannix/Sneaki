@@ -1,7 +1,6 @@
 package com.example.sneaki
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,22 @@ import kotlinx.android.synthetic.main.fragment_country.*
 
 class CountryFragment : Fragment() {
 
+    private var listener: OnCountrySelectedListener? = null
+
+    interface OnCountrySelectedListener {
+        fun onCountrySelected(country: CountriesModel)
+    }
+
     companion object {
         fun newInstance()  = CountryFragment()
     }
 
     private val response by lazy { CountryResponse() }
     private val adapter by lazy { CountryAdapter(requireContext()) }
+
+    fun attach(listener: OnCountrySelectedListener) {
+        this.listener = listener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +55,9 @@ class CountryFragment : Fragment() {
     }
 
     private fun setCountryListener() {
-        adapter.setListener(object: CountryAdapter.OnCountrySelectedListener {
-            override fun onCountrySelected(country: CountriesModel) {
-                Log.d("Countryfragment",country.name)
+        adapter.setListener(object: CountryAdapter.OnCountryClickedListener {
+            override fun onCountryClicked(country: CountriesModel) {
+                listener?.onCountrySelected(country)
             }
         })
     }

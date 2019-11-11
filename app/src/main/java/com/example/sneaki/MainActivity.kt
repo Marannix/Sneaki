@@ -15,16 +15,23 @@ class MainActivity : AppCompatActivity() {
     private fun initCountryFragment() {
         val fragment = CountryFragment.newInstance()
         replaceFragment(fragment)
+        fragment.attach(object: CountryFragment.OnCountrySelectedListener {
+            override fun onCountrySelected(country: CountriesModel) {
+                initDetailFragment(country)
+            }
+        })
     }
 
-//    private fun initDetailFragment() {
-//        val fragment = DetailFragment.newInstance()
-//        replaceFragment(fragment)
-//    }
+    // TODO: When device rotated keep detail fragment state
+    private fun initDetailFragment(country: CountriesModel) {
+        val fragment = DetailFragment.newInstance(country)
+        replaceFragment(fragment)
+    }
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
         fragmentTransaction.commit()
     }
+
 }

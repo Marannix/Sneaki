@@ -12,13 +12,13 @@ import java.util.*
 class CountryAdapter(private val context: Context) : BaseAdapter() {
 
     private var countries = emptyList<CountriesModel>()
-    private var listener: OnCountrySelectedListener? = null
+    private var listener: OnCountryClickedListener? = null
 
-    interface OnCountrySelectedListener {
-        fun onCountrySelected(country: CountriesModel)
+    interface OnCountryClickedListener {
+        fun onCountryClicked(country: CountriesModel)
     }
 
-    fun setListener(listener: OnCountrySelectedListener) {
+    fun setListener(listener: OnCountryClickedListener) {
         this.listener = listener
     }
 
@@ -56,7 +56,7 @@ class CountryAdapter(private val context: Context) : BaseAdapter() {
         row.longitude.text = countries[position].longitude.toString()
 
         row.countryRow.setOnClickListener {
-            listener?.onCountrySelected(countries[position])
+            listener?.onCountryClicked(countries[position])
         }
 
     }

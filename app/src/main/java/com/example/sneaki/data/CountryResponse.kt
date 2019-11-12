@@ -1,7 +1,8 @@
-package com.example.sneaki
+package com.example.sneaki.data
 
 import android.os.AsyncTask
 import androidx.lifecycle.MutableLiveData
+import com.example.sneaki.model.CountriesModel
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader

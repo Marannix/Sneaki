@@ -1,8 +1,12 @@
-package com.example.sneaki
+package com.example.sneaki.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.sneaki.R
+import com.example.sneaki.fragment.CountryFragment
+import com.example.sneaki.fragment.DetailFragment
+import com.example.sneaki.model.CountriesModel
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.sneaki
+package com.example.sneaki.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

@@ -1,11 +1,12 @@
-package com.example.sneaki
+package com.example.sneaki.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.sneaki.R
+import com.example.sneaki.model.CountriesModel
 import kotlinx.android.synthetic.main.fragment_detail.*
 import java.text.NumberFormat
 import java.util.*

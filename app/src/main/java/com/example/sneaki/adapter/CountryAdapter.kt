@@ -1,10 +1,12 @@
-package com.example.sneaki
+package com.example.sneaki.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.example.sneaki.R
+import com.example.sneaki.model.CountriesModel
 import kotlinx.android.synthetic.main.country_row.view.*
 
 class CountryAdapter(private val context: Context) : BaseAdapter() {

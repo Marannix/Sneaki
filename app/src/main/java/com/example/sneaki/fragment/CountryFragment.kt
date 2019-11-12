@@ -1,4 +1,4 @@
-package com.example.sneaki
+package com.example.sneaki.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
+import com.example.sneaki.adapter.CountryAdapter
+import com.example.sneaki.data.CountryResponse
+import com.example.sneaki.R
+import com.example.sneaki.model.CountriesModel
 import kotlinx.android.synthetic.main.fragment_country.*
 
 class CountryFragment : Fragment(), AdapterView.OnItemSelectedListener {

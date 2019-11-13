@@ -1,2 +1,2 @@
 # Sneaki
- Display list of countries using no libraries
+Using async task with no libraries to fetch data and diplay in a list
